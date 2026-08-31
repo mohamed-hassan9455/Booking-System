@@ -44,62 +44,82 @@ export default async function BookingStatusPage({
     booking.status === "accepted";
 
   return (
-    <main>
-      <h1>Booking status</h1>
+    <main className="booking-status-page">
+      <div className="booking-status-container">
+        <section className="booking-status-card">
+          <div className="booking-status-heading">
+            <p className="booking-eyebrow">Booking details</p>
 
-      <p>
-        Reference:{" "}
-        <strong>{reference.toUpperCase()}</strong>
-      </p>
+            <h1>Booking status</h1>
 
-      {owner && (
-        <>
-          <p>
-            Booking with:{" "}
-            <strong>
-              {owner.first_name} {owner.surname}
-            </strong>
-          </p>
+            <p className="booking-status-reference">
+              Reference:{" "}
+              <strong>{reference.toUpperCase()}</strong>
+            </p>
+          </div>
 
-          {owner.business_title && (
-            <p>{owner.business_title}</p>
+          <div className="booking-status-details">
+            {owner && (
+              <div className="booking-status-row">
+                <span>Booking with</span>
+
+                <strong>
+                  {owner.first_name} {owner.surname}
+                </strong>
+              </div>
+            )}
+
+            {owner?.business_title && (
+              <div className="booking-status-row">
+                <span>Business / role</span>
+
+                <strong>{owner.business_title}</strong>
+              </div>
+            )}
+
+            <div className="booking-status-row">
+              <span>Date</span>
+
+              <strong>{formattedDate}</strong>
+            </div>
+
+            <div className="booking-status-row">
+              <span>Time</span>
+
+              <strong>
+                {booking.start_time.slice(0, 5)} -{" "}
+                {booking.end_time.slice(0, 5)}
+              </strong>
+            </div>
+
+            <div className="booking-status-row">
+              <span>Status</span>
+
+              <span
+                className={`booking-status-badge status-${booking.status}`}
+              >
+                {booking.status}
+              </span>
+            </div>
+          </div>
+
+          {booking.status === "cancelled" && (
+            <div className="booking-status-message">
+              This booking has been cancelled.
+            </div>
           )}
-        </>
-      )}
 
-      <p>
-        Date: <strong>{formattedDate}</strong>
-      </p>
+          {booking.status === "rejected" && (
+            <div className="booking-status-message booking-status-message-error">
+              This booking was rejected.
+            </div>
+          )}
+        </section>
 
-      <p>
-        Time:{" "}
-        <strong>
-          {booking.start_time.slice(0, 5)} -{" "}
-          {booking.end_time.slice(0, 5)}
-        </strong>
-      </p>
-
-      <p>
-        Status: <strong>{booking.status}</strong>
-      </p>
-
-      {canCancel && (
-        <CancelBookingForm
-          reference={reference}
-        />
-      )}
-
-      {booking.status === "cancelled" && (
-        <p>
-          <strong>This booking has been cancelled.</strong>
-        </p>
-      )}
-
-      {booking.status === "rejected" && (
-        <p>
-          <strong>This booking was rejected.</strong>
-        </p>
-      )}
+        {canCancel && (
+          <CancelBookingForm reference={reference} />
+        )}
+      </div>
     </main>
   );
 }

@@ -50,37 +50,68 @@ export default async function BookingPage({
     });
 
   return (
-    <main>
-      <h1>
-        Book with {profile.first_name} {profile.surname}
-      </h1>
+    <main className="booking-page">
+      <div className="booking-container">
+        <section className="booking-header-card">
+          <div className="booking-avatar">
+            {profile.first_name.charAt(0)}
+            {profile.surname.charAt(0)}
+          </div>
 
-      {profile.business_title && (
-        <p>{profile.business_title}</p>
-      )}
+          <div>
+            <p className="booking-eyebrow">Book an appointment</p>
 
-      <p>@{profile.username}</p>
+            <h1>
+              {profile.first_name} {profile.surname}
+            </h1>
 
-      <h2>Available appointments</h2>
+            {profile.business_title && (
+              <p className="booking-business-title">
+                {profile.business_title}
+              </p>
+            )}
 
-      {availabilityError && (
-        <p>There was a problem loading availability.</p>
-      )}
+            <p className="booking-username">
+              @{profile.username}
+            </p>
+          </div>
+        </section>
 
-      {!availabilityError &&
-        (!availability || availability.length === 0) && (
-          <p>No availability has been added yet.</p>
-        )}
+        <section className="booking-main-card">
+          <div className="booking-section-heading">
+            <h2>Available appointments</h2>
 
-      {availability && availability.length > 0 && (
-        <BookingSlots
-          availability={availability}
-          ownerId={profile.id}
-          unavailableSlots={
-            unavailableError ? [] : unavailableSlots ?? []
-          }
-        />
-      )}
+            <p>
+              Select a date and time that works for you.
+            </p>
+          </div>
+
+          {availabilityError && (
+            <p className="booking-error">
+              There was a problem loading availability.
+            </p>
+          )}
+
+          {!availabilityError &&
+            (!availability || availability.length === 0) && (
+              <p className="booking-empty">
+                No availability has been added yet.
+              </p>
+            )}
+
+          {availability && availability.length > 0 && (
+            <BookingSlots
+              availability={availability}
+              ownerId={profile.id}
+              unavailableSlots={
+                unavailableError
+                  ? []
+                  : unavailableSlots ?? []
+              }
+            />
+          )}
+        </section>
+      </div>
     </main>
   );
 }

@@ -159,7 +159,7 @@ export default function BookingSlots({
   }
 
   return (
-    <section>
+    <section className="booking-slots">
       {upcomingDates.map((date) => {
         const matchingAvailability = availability.filter(
           (range) => range.day_of_week === date.getDay()
@@ -196,10 +196,15 @@ export default function BookingSlots({
         }
 
         return (
-          <div key={dateValue}>
-            <h3>{displayDate}</h3>
+          <div
+            key={dateValue}
+            className="booking-date-group"
+          >
+            <h3 className="booking-date-title">
+              {displayDate}
+            </h3>
 
-            <div>
+            <div className="booking-time-grid">
               {availableTimes.map((time) => {
                 const isSelected =
                   selectedSlot?.date === dateValue &&
@@ -209,6 +214,9 @@ export default function BookingSlots({
                   <button
                     key={`${dateValue}-${time}`}
                     type="button"
+                    className={`booking-time-button ${
+                      isSelected ? "selected" : ""
+                    }`}
                     onClick={() => {
                       setSelectedSlot({
                         date: dateValue,
@@ -232,18 +240,23 @@ export default function BookingSlots({
       })}
 
       {selectedSlot && (
-        <>
-          <h3>Request this appointment</h3>
+        <div className="booking-request-card">
+          <div className="booking-request-heading">
+            <h3>Request this appointment</h3>
 
-          <p>
-            <strong>
-              {selectedSlot.displayDate} at{" "}
-              {selectedSlot.time}
-            </strong>
-          </p>
+            <p>
+              You selected{" "}
+              <strong>
+                {selectedSlot.displayDate} at {selectedSlot.time}
+              </strong>
+            </p>
+          </div>
 
-          <form onSubmit={handleBooking}>
-            <div>
+          <form
+            onSubmit={handleBooking}
+            className="booking-request-form"
+          >
+            <div className="booking-field">
               <label htmlFor="customerName">
                 Full name
               </label>
@@ -255,11 +268,12 @@ export default function BookingSlots({
                 onChange={(event) =>
                   setCustomerName(event.target.value)
                 }
+                placeholder="Enter your full name"
                 required
               />
             </div>
 
-            <div>
+            <div className="booking-field">
               <label htmlFor="customerEmail">
                 Email
               </label>
@@ -271,11 +285,12 @@ export default function BookingSlots({
                 onChange={(event) =>
                   setCustomerEmail(event.target.value)
                 }
+                placeholder="you@example.com"
                 required
               />
             </div>
 
-            <div>
+            <div className="booking-field">
               <label htmlFor="reason">
                 Reason for booking
               </label>
@@ -286,49 +301,63 @@ export default function BookingSlots({
                 onChange={(event) =>
                   setReason(event.target.value)
                 }
+                placeholder="Tell the owner what you'd like to discuss..."
+                rows={4}
               />
             </div>
 
             {errorMessage && (
-              <p>{errorMessage}</p>
+              <p className="booking-form-error">
+                {errorMessage}
+              </p>
             )}
 
-            <button type="submit" disabled={loading}>
+            <button
+              type="submit"
+              disabled={loading}
+              className="booking-submit-button"
+            >
               {loading
                 ? "Sending request..."
                 : "Request Booking"}
             </button>
           </form>
-        </>
+        </div>
       )}
 
       {successMessage && (
-  <div>
-    <p>
-      <strong>{successMessage}</strong>
-    </p>
+        <div className="booking-success-card">
+          <div className="booking-success-icon">
+            ✓
+          </div>
 
-    {bookingReference && (
-      <>
-        <p>
-          Your booking reference is:{" "}
-          <strong>{bookingReference}</strong>
-        </p>
+          <div>
+            <h3>{successMessage}</h3>
 
-        <p>
-          <Link href={`/booking/${bookingReference}`}>
-            View booking status
-          </Link>
-        </p>
-      </>
-    )}
+            {bookingReference && (
+              <>
+                <p>Your booking reference is:</p>
 
-    <p>
-      Keep this reference safe. You can use it to check your
-      booking status.
-    </p>
-  </div>
-)}
+                <p className="booking-reference">
+                  {bookingReference}
+                </p>
+
+                <Link
+                  href={`/booking/${bookingReference}`}
+                  className="booking-status-link"
+                >
+                  View booking status
+                </Link>
+              </>
+            )}
+
+            <p className="booking-success-note">
+              Keep this reference safe. You can use it to check
+              your booking status.
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
