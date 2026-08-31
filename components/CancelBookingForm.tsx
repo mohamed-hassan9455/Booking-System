@@ -57,15 +57,20 @@ export default function CancelBookingForm({
   }
 
   return (
-    <section>
-      <h2>Cancel booking</h2>
+    <section className="cancel-booking-card">
+      <div className="cancel-booking-heading">
+        <h2>Cancel booking</h2>
 
-      <p>
-        Enter the email address used when making this booking.
-      </p>
+        <p>
+          Enter the email address used when making this booking.
+        </p>
+      </div>
 
-      <form onSubmit={handleCancel}>
-        <div>
+      <form
+        onSubmit={handleCancel}
+        className="cancel-booking-form"
+      >
+        <div className="booking-field">
           <label htmlFor="cancelEmail">Email</label>
 
           <input
@@ -75,21 +80,28 @@ export default function CancelBookingForm({
             onChange={(event) =>
               setEmail(event.target.value)
             }
+            placeholder="you@example.com"
             required
           />
         </div>
 
         {errorMessage && (
-          <p>{errorMessage}</p>
-        )}
-
-        {successMessage && (
-          <p>
-            <strong>{successMessage}</strong>
+          <p className="booking-form-error">
+            {errorMessage}
           </p>
         )}
 
-        <button type="submit" disabled={loading}>
+        {successMessage && (
+          <p className="cancel-success">
+            {successMessage}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="cancel-booking-button"
+        >
           {loading ? "Cancelling..." : "Cancel booking"}
         </button>
       </form>
