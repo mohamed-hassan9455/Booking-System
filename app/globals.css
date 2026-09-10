@@ -685,3 +685,25 @@ a {
     text-align: left;
   }
 }
+.booking-time-button.unavailable {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.booking-time-button.unavailable:hover {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  transform: none;
+}
+.booking-email-warning {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 14px;
+  font-weight: 600;
+}

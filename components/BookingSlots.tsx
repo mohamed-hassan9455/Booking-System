@@ -2,7 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/client";
+
 
 type Availability = {
   id: string;
@@ -81,7 +81,6 @@ export default function BookingSlots({
   ownerId,
   unavailableSlots,
 }: BookingSlotsProps) {
-  const supabase = createClient();
 
   const [selectedSlot, setSelectedSlot] =
     useState<SelectedSlot | null>(null);
@@ -94,6 +93,9 @@ export default function BookingSlots({
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [bookingReference, setBookingReference] = useState("");
+  const [emailWarning, setEmailWarning] = useState("");
+  const [currentUnavailableSlots, setCurrentUnavailableSlots] =
+  useState<UnavailableSlot[]>(unavailableSlots);
 
   const upcomingDates = useMemo(() => {
     const dates: Date[] = [];
@@ -127,29 +129,65 @@ export default function BookingSlots({
     setSuccessMessage("");
     setBookingReference("");
 
-    const { data: referenceId, error } = await supabase.rpc(
-      "create_booking_request",
-      {
-        p_owner_id: ownerId,
-        p_customer_name: customerName,
-        p_customer_email: customerEmail,
-        p_booking_date: selectedSlot.date,
-        p_start_time: selectedSlot.time,
-        p_reason: reason || null,
-      }
-    );
+    setEmailWarning("");
 
-    if (error) {
-      setErrorMessage(error.message);
-      setLoading(false);
-      return;
-    }
+const response = await fetch("/api/bookings", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    ownerId,
+    customerName,
+    customerEmail,
+    bookingDate: selectedSlot.date,
+    startTime: selectedSlot.time,
+    reason: reason || null,
+  }),
+});
+
+const result = await response.json();
+
+if (!response.ok) {
+  setErrorMessage(
+    result.error || "Unable to create booking."
+  );
+  setLoading(false);
+  return;
+}
+
+const referenceId = result.referenceId;
+
+if (!result.emailSent) {
+  setEmailWarning(
+    "Your booking was created, but the confirmation email could not be sent."
+  );
+}
 
     setSuccessMessage("Booking request sent successfully.");
 
     if (referenceId) {
       setBookingReference(referenceId);
     }
+    setCurrentUnavailableSlots((previousSlots) => {
+  const alreadyUnavailable = previousSlots.some(
+    (slot) =>
+      slot.booking_date === selectedSlot.date &&
+      slot.start_time.slice(0, 5) === selectedSlot.time
+  );
+
+  if (alreadyUnavailable) {
+    return previousSlots;
+  }
+
+  return [
+    ...previousSlots,
+    {
+      booking_date: selectedSlot.date,
+      start_time: selectedSlot.time,
+    },
+  ];
+});
 
     setCustomerName("");
     setCustomerEmail("");
@@ -183,18 +221,6 @@ export default function BookingSlots({
         const dateValue = dateToString(date);
         const displayDate = formatDate(date);
 
-        const availableTimes = times.filter((time) => {
-          return !unavailableSlots.some(
-            (slot) =>
-              slot.booking_date === dateValue &&
-              slot.start_time.slice(0, 5) === time
-          );
-        });
-
-        if (availableTimes.length === 0) {
-          return null;
-        }
-
         return (
           <div
             key={dateValue}
@@ -205,7 +231,13 @@ export default function BookingSlots({
             </h3>
 
             <div className="booking-time-grid">
-              {availableTimes.map((time) => {
+              {times.map((time) => {
+               const isUnavailable = currentUnavailableSlots.some(
+  (slot) =>
+    slot.booking_date === dateValue &&
+    slot.start_time.slice(0, 5) === time
+);
+
                 const isSelected =
                   selectedSlot?.date === dateValue &&
                   selectedSlot?.time === time;
@@ -214,8 +246,11 @@ export default function BookingSlots({
                   <button
                     key={`${dateValue}-${time}`}
                     type="button"
+                    disabled={isUnavailable}
                     className={`booking-time-button ${
                       isSelected ? "selected" : ""
+                    } ${
+                      isUnavailable ? "unavailable" : ""
                     }`}
                     onClick={() => {
                       setSelectedSlot({
@@ -229,6 +264,7 @@ export default function BookingSlots({
                       setBookingReference("");
                     }}
                     aria-pressed={isSelected}
+                    aria-disabled={isUnavailable}
                   >
                     {isSelected ? `✓ ${time}` : time}
                   </button>
@@ -350,7 +386,11 @@ export default function BookingSlots({
                 </Link>
               </>
             )}
-
+{emailWarning && (
+  <p className="booking-email-warning">
+    {emailWarning}
+  </p>
+)}
             <p className="booking-success-note">
               Keep this reference safe. You can use it to check
               your booking status.
