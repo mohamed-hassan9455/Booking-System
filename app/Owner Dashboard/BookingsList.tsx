@@ -36,7 +36,7 @@ export default function BookingsList({ bookings }: { bookings: Booking[] }) {
       .eq("id", id);
 
     if (error) {
-      console.error(`Failed to ${status} booking:`, error.message);
+      console.warn(`Failed to ${status} booking:`, error.message);
 
       setErrorMessage(
         `Could not ${
