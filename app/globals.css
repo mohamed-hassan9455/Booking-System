@@ -707,3 +707,391 @@ a {
   font-size: 14px;
   font-weight: 600;
 }
+/* ========================================
+   Owner dashboard
+======================================== */
+
+.dashboard-shell {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #111827;
+}
+
+.dashboard-topbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 32px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.dashboard-brand-subtitle {
+  margin-top: 2px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.dashboard-topbar button {
+  padding: 10px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.dashboard-topbar button:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.dashboard-page {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+}
+
+.dashboard-page > h1 {
+  margin-bottom: 28px;
+  font-size: 32px;
+  line-height: 1.2;
+  color: #111827;
+}
+
+/* ========================================
+   Dashboard sections
+======================================== */
+
+.availability-section,
+.bookings-section {
+  margin-bottom: 28px;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+}
+
+.availability-section h2,
+.bookings-section h2 {
+  margin-bottom: 22px;
+  font-size: 22px;
+  color: #111827;
+}
+
+/* ========================================
+   Dashboard feedback messages
+======================================== */
+
+.dashboard-success {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  background: #f0fdf4;
+  color: #15803d;
+  font-weight: 600;
+}
+
+.availability-section .auth-error,
+.bookings-section .auth-error {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+/* ========================================
+   Availability
+======================================== */
+
+.availability-days {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.availability-day-row {
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f9fafb;
+}
+
+.availability-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.availability-day-header strong {
+  font-size: 16px;
+  color: #111827;
+}
+
+.availability-day-header button {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.availability-day-header button:hover:not(:disabled) {
+  border-color: #111827;
+}
+
+.availability-slots {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.availability-slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 13px;
+  border-radius: 9px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.availability-slot span {
+  font-weight: 600;
+  color: #374151;
+}
+
+.availability-slot button {
+  padding: 7px 10px;
+  border: 1px solid #fecaca;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.availability-slot button:hover:not(:disabled) {
+  background: #fef2f2;
+}
+
+.availability-empty {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.availability-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+}
+
+.availability-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.availability-form input {
+  padding: 9px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #111827;
+  font-size: 14px;
+}
+
+.availability-form-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.availability-form-buttons button {
+  padding: 9px 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.availability-form-buttons button:first-child {
+  background: #111827;
+  color: #ffffff;
+}
+
+.availability-form-buttons button:last-child {
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+}
+
+/* ========================================
+   Booking cards
+======================================== */
+
+.booking-card {
+  margin-bottom: 16px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.booking-card:last-child {
+  margin-bottom: 0;
+}
+
+.booking-card.status-pending {
+  border-left: 4px solid #f59e0b;
+  background: #fffaf2;
+  color: #111827;
+}
+
+.booking-card.status-accepted {
+  border-left: 4px solid #22c55e;
+  background: #f7fef9;
+  color: #111827;
+}
+
+.booking-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.booking-card-header strong {
+  font-size: 17px;
+}
+
+.booking-card p {
+  margin-top: 7px;
+  color: #4b5563;
+  line-height: 1.45;
+}
+
+.booking-card .booking-reference {
+  margin: 14px 0;
+  color: #111827;
+}
+
+.booking-card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.booking-card-buttons button {
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.booking-card-buttons button:first-child {
+  border: 1px solid #15803d;
+  background: #15803d;
+  color: #ffffff;
+}
+
+.booking-card-buttons button:last-child {
+  border: 1px solid #dc2626;
+  background: #ffffff;
+  color: #b91c1c;
+}
+
+.booking-card-buttons button:disabled,
+.availability-section button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   Dashboard responsive
+======================================== */
+
+@media (max-width: 700px) {
+  .dashboard-topbar {
+    padding: 16px 18px;
+  }
+
+  .dashboard-page {
+    padding: 28px 14px 44px;
+  }
+
+  .dashboard-page > h1 {
+    font-size: 27px;
+  }
+
+  .availability-section,
+  .bookings-section {
+    padding: 20px;
+  }
+
+  .availability-day-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .availability-form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .availability-form-buttons {
+    width: 100%;
+  }
+
+  .availability-form-buttons button {
+    flex: 1;
+  }
+
+  .booking-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .booking-card-buttons {
+    flex-direction: column;
+  }
+
+  .booking-card-buttons button {
+    width: 100%;
+  }
+}
