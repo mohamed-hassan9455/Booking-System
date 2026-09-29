@@ -18,9 +18,17 @@ export default async function DashboardLayout({
   }
 
   return (
-    <>
+  <div className="dashboard-shell">
+    <header className="dashboard-topbar">
+      <div>
+        <p className="dashboard-brand">Booking System</p>
+        <p className="dashboard-brand-subtitle">Owner dashboard</p>
+      </div>
+
       <LogoutButton />
-      {children}
-    </>
-  );
+    </header>
+
+    {children}
+  </div>
+);
 }
