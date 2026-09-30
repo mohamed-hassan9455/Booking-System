@@ -40,15 +40,26 @@ export default function OwnerDashboard({
   useEffect(() => {
     async function loadData() {
       const { data: availabilityData } = await supabase
-        .from("availability")
-        .select("*")
-        .eq("owner_id", ownerId);
+  .from("availability")
+  .select("*")
+  .eq("owner_id", ownerId);
 
-      const { data: bookingsData } = await supabase
-        .from("bookings")
-        .select("*")
-        .eq("owner_id", ownerId)
-        .in("status", ["pending", "accepted"]);
+const now = new Date();
+
+const today = [
+  now.getFullYear(),
+  String(now.getMonth() + 1).padStart(2, "0"),
+  String(now.getDate()).padStart(2, "0"),
+].join("-");
+
+const { data: bookingsData } = await supabase
+  .from("bookings")
+  .select("*")
+  .eq("owner_id", ownerId)
+  .in("status", ["pending", "accepted"])
+  .gte("booking_date", today)
+  .order("booking_date", { ascending: true })
+  .order("start_time", { ascending: true });
 
       setAvailability(availabilityData ?? []);
       setBookings(bookingsData ?? []);
