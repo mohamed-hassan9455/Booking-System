@@ -16,7 +16,7 @@ export default function Home() {
           </Link>
 
           <Link href="/signup" className={styles.signupLink}>
-            Create account
+            Invited owner? Sign up
           </Link>
         </nav>
       </header>
@@ -36,12 +36,12 @@ export default function Home() {
           </p>
 
           <div className={styles.actions}>
-            <Link href="/signup" className={styles.primaryButton}>
-              Get started
+            <Link href="/login" className={styles.primaryButton}>
+              Owner login
             </Link>
 
-            <Link href="/login" className={styles.secondaryButton}>
-              Owner login
+            <Link href="/signup" className={styles.secondaryButton}>
+              Invited? Create account
             </Link>
           </div>
         </div>
