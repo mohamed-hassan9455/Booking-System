@@ -7,7 +7,7 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.brand}>
           <span className={styles.brandMark}>B</span>
-          <span>Booking System</span>
+          <span>Bookly</span>
         </div>
 
         <nav className={styles.nav}>
@@ -31,8 +31,8 @@ export default function Home() {
           </h1>
 
           <p className={styles.description}>
-            Set your weekly availability, share your personal booking link
-            and manage customer requests from one dashboard.
+            Set your weekly availability, share your personal booking link and
+            manage customer requests from one dashboard.
           </p>
 
           <div className={styles.actions}>
@@ -93,8 +93,8 @@ export default function Home() {
           <span className={styles.featureNumber}>01</span>
           <h2>Set your availability</h2>
           <p>
-            Choose when customers can book you and update your schedule
-            whenever you need.
+            Choose when customers can book you and update your schedule whenever
+            you need.
           </p>
         </article>
 
@@ -102,8 +102,8 @@ export default function Home() {
           <span className={styles.featureNumber}>02</span>
           <h2>Share your booking link</h2>
           <p>
-            Customers can choose an available time without needing to create
-            an account.
+            Customers can choose an available time without needing to create an
+            account.
           </p>
         </article>
 
@@ -111,14 +111,14 @@ export default function Home() {
           <span className={styles.featureNumber}>03</span>
           <h2>Manage requests</h2>
           <p>
-            Review pending bookings and accept or reject requests directly
-            from your dashboard.
+            Review pending bookings and accept or reject requests directly from
+            your dashboard.
           </p>
         </article>
       </section>
 
       <footer className={styles.footer}>
-        <p>Booking System</p>
+        <p>Bookly</p>
         <p>Simple scheduling, without the back-and-forth.</p>
       </footer>
     </main>
