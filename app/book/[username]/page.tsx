@@ -1,5 +1,6 @@
-import BookingSlots from "@/components/BookingSlots";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import BookingSlots from "@/components/BookingSlots";
 import { createClient } from "@/lib/supabase/server";
 
 function dateToString(date: Date) {
@@ -66,14 +67,13 @@ export default async function BookingPage({
             </h1>
 
             {profile.business_title && (
-              <p className="booking-business-title">
-                {profile.business_title}
-              </p>
+              <p className="booking-business-title">{profile.business_title}</p>
             )}
 
-            <p className="booking-username">
-              @{profile.username}
-            </p>
+            <p className="booking-username">@{profile.username}</p>
+            <Link href="/book" className="booking-change-staff-link">
+              Choose another team member
+            </Link>
           </div>
         </section>
 
@@ -81,9 +81,7 @@ export default async function BookingPage({
           <div className="booking-section-heading">
             <h2>Available appointments</h2>
 
-            <p>
-              Select a date and time that works for you.
-            </p>
+            <p>Select a date and time that works for you.</p>
           </div>
 
           {availabilityError && (
@@ -104,9 +102,7 @@ export default async function BookingPage({
               availability={availability}
               ownerId={profile.id}
               unavailableSlots={
-                unavailableError
-                  ? []
-                  : unavailableSlots ?? []
+                unavailableError ? [] : (unavailableSlots ?? [])
               }
             />
           )}
