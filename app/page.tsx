@@ -36,12 +36,12 @@ export default function Home() {
           </p>
 
           <div className={styles.actions}>
-            <Link href="/login" className={styles.primaryButton}>
-              Owner login
+            <Link href="/book" className={styles.primaryButton}>
+              Book an appointment
             </Link>
 
-            <Link href="/signup" className={styles.secondaryButton}>
-              Invited? Create account
+            <Link href="/login" className={styles.secondaryButton}>
+              Owner login
             </Link>
           </div>
         </div>
