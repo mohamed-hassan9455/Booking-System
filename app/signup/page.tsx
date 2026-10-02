@@ -47,7 +47,12 @@ export default function SignupPage() {
     });
 
     if (error) {
-      setErrorMessage(error.message);
+      const message =
+        error.message === "Database error saving new user"
+          ? "Account could not be created. Make sure you're using an invited email and that your details are valid."
+          : error.message;
+
+      setErrorMessage(message);
       setLoading(false);
       return;
     }
