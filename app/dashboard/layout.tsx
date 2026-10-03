@@ -1,8 +1,7 @@
-import type { ReactNode } from "react";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import type { ReactNode } from "react";
 import LogoutButton from "@/components/LogoutButton";
-
+import { createClient } from "@/lib/supabase/server";
 
 export default async function DashboardLayout({
   children,
@@ -18,17 +17,17 @@ export default async function DashboardLayout({
   }
 
   return (
-  <div className="dashboard-shell">
-    <header className="dashboard-topbar">
-      <div>
-        <p className="dashboard-brand">Booking System</p>
-        <p className="dashboard-brand-subtitle">Owner dashboard</p>
-      </div>
+    <div className="dashboard-shell">
+      <header className="dashboard-topbar">
+        <div>
+          <p className="dashboard-brand">Bookly</p>
+          <p className="dashboard-brand-subtitle">Owner dashboard</p>
+        </div>
 
-      <LogoutButton />
-    </header>
+        <LogoutButton />
+      </header>
 
-    {children}
-  </div>
-);
+      {children}
+    </div>
+  );
 }
