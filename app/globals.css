@@ -707,3 +707,557 @@ a {
   font-size: 14px;
   font-weight: 600;
 }
+
+/* ==========================================================
+   Bookly — Owner Dashboard styles
+   ========================================================== */
+
+   :root {
+    --ink: #1f2430;
+    --ink-soft: #6b7280;
+    --bg: #eef0f3;
+    --surface: #ffffff;
+    --line: #e4e6ea;
+    --accent: #146c6b;
+    --accent-dark: #0f5352;
+    --accent-soft: #e2eeec;
+    --pending: #c9821d;
+    --pending-bg: #fbf0df;
+    --accepted: #2f7d4f;
+    --accepted-bg: #e8f3eb;
+    --danger: #b0432d;
+    --danger-bg: #faeae5;
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 2px rgba(31, 36, 48, 0.04), 0 6px 16px -8px rgba(31, 36, 48, 0.12);
+    --shadow-soft: 0 1px 2px rgba(31, 36, 48, 0.05), 0 2px 6px -2px rgba(31, 36, 48, 0.08);
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .dashboard-shell {
+    background: var(--bg);
+    min-height: 100vh;
+  }
+  
+  /* ---------- top nav ---------- */
+  
+  .dashboard-nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .dashboard-nav-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .dashboard-logo {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+    color: #2563eb;
+  }
+  
+  .dashboard-logo-dot {
+    color: var(--accent);
+  }
+  
+  .dashboard-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  
+  .dashboard-nav-name {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+  
+  /* ---------- page layout ---------- */
+  
+  .dashboard-page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 40px 24px 96px;
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+    line-height: 1.5;
+  }
+  
+  .dashboard-loading {
+    color: var(--ink-soft);
+    padding: 40px 0;
+  }
+  
+  .dashboard-intro {
+    margin-bottom: 32px;
+  }
+  
+  .dashboard-intro h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    font-size: 1.9rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+  }
+  
+  .dashboard-intro p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+  
+  /* ---------- section cards (applies to all three sections) ---------- */
+  
+  .schedule-section,
+  .availability-section,
+  .bookings-section {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 28px 28px 30px;
+    margin-bottom: 28px;
+  }
+  
+  .schedule-section h2,
+  .availability-section h2,
+  .bookings-section h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 0 0 20px;
+  }
+  
+  /* ---------- shared status messages ---------- */
+  
+  .auth-error {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid #edc7ba;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 0.87rem;
+    margin: 0 0 16px;
+  }
+  
+  .dashboard-success {
+    background: var(--accepted-bg);
+    color: var(--accepted);
+    border: 1px solid #c9e2cf;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 0.87rem;
+    margin: 0 0 16px;
+  }
+  
+  /* ---------- weekly schedule grid ---------- */
+  
+  .schedule-grid-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+  }
+  
+  .schedule-grid {
+    display: grid;
+    min-width: 680px;
+  }
+  
+  .schedule-corner {
+    background: #fbfaf7;
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+  
+  .schedule-day-label {
+    background: #fbfaf7;
+    border-bottom: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    padding: 12px 8px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--ink-soft);
+  }
+  
+  .schedule-time-label {
+    border-right: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+    padding: 10px;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+  
+  .schedule-cell {
+    border-left: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+    min-height: 46px;
+    padding: 4px 6px;
+    font-size: 0.72rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: background 0.12s ease;
+  }
+  
+  .schedule-cell-available {
+    background: #fff;
+    color: var(--accent-dark);
+    font-weight: 500;
+  }
+  
+  .schedule-cell-available:hover {
+    background: var(--accent-soft);
+  }
+  
+  .schedule-cell-booked {
+    background: #ece9e2;
+    color: var(--ink);
+    font-weight: 600;
+    border-left: 2px solid var(--pending);
+  }
+  
+  .schedule-cell-closed {
+    background: #fbfaf8;
+    color: #cbc9bf;
+  }
+  
+  .schedule-cell-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .schedule-legend {
+    display: flex;
+    gap: 22px;
+    margin-top: 16px;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  
+  .schedule-legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+  
+  .legend-available { background: #fff; border: 1px solid var(--line); }
+  .legend-booked { background: #ece9e2; border-left: 2px solid var(--pending); }
+  .legend-closed { background: #fbfaf8; border: 1px solid var(--line); }
+  
+  /* ---------- availability settings ---------- */
+  
+  .availability-days {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  
+  .availability-day-row {
+    background: #fbfbfc;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    padding: 18px 20px;
+  }
+  
+  .availability-day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  
+  .availability-day-header strong {
+    font-size: 0.94rem;
+    font-weight: 600;
+  }
+  
+  .availability-day-header button {
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 7px 14px;
+    border-radius: 999px;
+    transition: border-color 0.15s ease;
+  }
+  
+  .availability-day-header button:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent-dark);
+  }
+  
+  .availability-day-header button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .availability-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  
+  .availability-empty {
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    margin: 12px 0 0;
+  }
+  
+  .availability-slot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px 10px 16px;
+    font-size: 0.87rem;
+    font-weight: 500;
+  }
+  
+  .availability-slot button {
+    background: #fff;
+    border: 1px solid var(--line);
+    color: var(--danger);
+    font-size: 0.76rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .availability-slot button:hover:not(:disabled) {
+    background: var(--danger-bg);
+    border-color: #edc7ba;
+  }
+  
+  .availability-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    padding: 18px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+  }
+  
+  .availability-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+  
+  .availability-form input {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 9px 10px;
+    font-size: 0.9rem;
+    color: var(--ink);
+    background: #fff;
+  }
+  
+  .availability-form input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  
+  .availability-form-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .availability-form-buttons button:first-child {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  
+  .availability-form-buttons button:first-child:hover:not(:disabled) {
+    background: var(--accent-dark);
+  }
+  
+  .availability-form-buttons button:last-child {
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  
+  .availability-form-buttons button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* ---------- bookings list ---------- */
+  
+  .bookings-section > p {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+  
+  .booking-card {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    transition: border-color 0.15s ease;
+  }
+  
+  .booking-card.status-pending {
+    border-left-color: var(--pending);
+  }
+  
+  .booking-card.status-accepted {
+    border-left-color: var(--accepted);
+  }
+  
+  .booking-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  
+  .booking-card-header strong {
+    font-size: 0.95rem;
+  }
+  
+  .booking-status-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 11px;
+    border-radius: 999px;
+  }
+  
+  .booking-status-badge.status-pending {
+    background: var(--pending-bg);
+    color: var(--pending);
+  }
+  
+  .booking-status-badge.status-accepted {
+    background: var(--accepted-bg);
+    color: var(--accepted);
+  }
+  
+  .booking-card p {
+    margin: 2px 0;
+    font-size: 0.87rem;
+    color: var(--ink-soft);
+  }
+  
+  .booking-reference {
+    font-size: 0.76rem;
+    color: #9a988f;
+    margin-top: 10px !important;
+  }
+  
+  .booking-card-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  
+  .booking-card-buttons button:first-child {
+    background: var(--accepted);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 9px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .booking-card-buttons button:first-child:hover:not(:disabled) {
+    background: #266840;
+  }
+  
+  .booking-card-buttons button:last-child {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--danger);
+    border-radius: var(--radius-sm);
+    padding: 9px 18px;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  
+  .booking-card-buttons button:last-child:hover:not(:disabled) {
+    background: var(--danger-bg);
+  }
+  
+  .booking-card-buttons button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* ---------- responsive ---------- */
+  
+  @media (max-width: 540px) {
+    .dashboard-page {
+      padding: 28px 16px 64px;
+    }
+  
+    .schedule-section,
+    .availability-section,
+    .bookings-section {
+      padding: 20px 18px 24px;
+    }
+  
+    .availability-day-header {
+      flex-wrap: wrap;
+    }
+  
+    .availability-form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
