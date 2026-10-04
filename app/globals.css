@@ -1204,56 +1204,56 @@ a {
   }
 
   .schedule-cell-available {
-  background: #f0fdf4;
-  color: #15803d;
-  font-weight: 600;
+    background: #f0fdf4;
+    color: #15803d;
+    font-weight: 600;
+  }
 }
+
+.dashboard-page {
+  padding: 28px 14px 44px;
 }
 
-  .dashboard-page {
-    padding: 28px 14px 44px;
-  }
+.dashboard-page > h1 {
+  font-size: 27px;
+}
 
-  .dashboard-page > h1 {
-    font-size: 27px;
-  }
+.availability-section,
+.bookings-section {
+  padding: 20px;
+}
 
-  .availability-section,
-  .bookings-section {
-    padding: 20px;
-  }
+.availability-day-header {
+  align-items: flex-start;
+  flex-direction: column;
+}
 
-  .availability-day-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+.availability-form {
+  align-items: stretch;
+  flex-direction: column;
+}
 
-  .availability-form {
-    align-items: stretch;
-    flex-direction: column;
-  }
+.availability-form-buttons {
+  width: 100%;
+}
 
-  .availability-form-buttons {
-    width: 100%;
-  }
+.availability-form-buttons button {
+  flex: 1;
+}
 
-  .availability-form-buttons button {
-    flex: 1;
-  }
+.booking-card-header {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
 
-  .booking-card-header {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
-  }
+.booking-card-buttons {
+  flex-direction: column;
+}
 
-  .booking-card-buttons {
-    flex-direction: column;
-  }
-
-  .booking-card-buttons button {
-    width: 100%;
-  }
+.booking-card-buttons button {
+  width: 100%;
+}
 
 /* ========================================
    Staff selection page

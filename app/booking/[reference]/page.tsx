@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import CancelBookingForm from "@/components/CancelBookingForm";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function BookingStatusPage({
   params,
@@ -11,12 +11,9 @@ export default async function BookingStatusPage({
 
   const supabase = await createClient();
 
-  const { data: bookings, error } = await supabase.rpc(
-    "get_booking_status",
-    {
-      p_reference_id: reference,
-    }
-  );
+  const { data: bookings, error } = await supabase.rpc("get_booking_status", {
+    p_reference_id: reference,
+  });
 
   if (error || !bookings || bookings.length === 0) {
     notFound();
@@ -35,13 +32,10 @@ export default async function BookingStatusPage({
     day: "numeric",
     month: "long",
     year: "numeric",
-  }).format(
-    new Date(`${booking.booking_date}T00:00:00`)
-  );
+  }).format(new Date(`${booking.booking_date}T00:00:00`));
 
   const canCancel =
-    booking.status === "pending" ||
-    booking.status === "accepted";
+    booking.status === "pending" || booking.status === "accepted";
 
   return (
     <main className="booking-status-page">
@@ -53,8 +47,7 @@ export default async function BookingStatusPage({
             <h1>Booking status</h1>
 
             <p className="booking-status-reference">
-              Reference:{" "}
-              <strong>{reference.toUpperCase()}</strong>
+              Reference: <strong>{reference.toUpperCase()}</strong>
             </p>
           </div>
 
@@ -95,9 +88,7 @@ export default async function BookingStatusPage({
             <div className="booking-status-row">
               <span>Status</span>
 
-              <span
-                className={`booking-status-badge status-${booking.status}`}
-              >
+              <span className={`booking-status-badge status-${booking.status}`}>
                 {booking.status}
               </span>
             </div>
@@ -116,9 +107,7 @@ export default async function BookingStatusPage({
           )}
         </section>
 
-        {canCancel && (
-          <CancelBookingForm reference={reference} />
-        )}
+        {canCancel && <CancelBookingForm reference={reference} />}
       </div>
     </main>
   );
