@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { type FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function UpdatePasswordPage() {
@@ -54,9 +54,7 @@ export default function UpdatePasswordPage() {
       <div className="auth-card">
         <h1>Set new password</h1>
 
-        <p className="auth-subtitle">
-          Enter your new password below.
-        </p>
+        <p className="auth-subtitle">Enter your new password below.</p>
 
         <form onSubmit={handleSubmit} className="auth-form">
           <label htmlFor="password">New password</label>
@@ -79,13 +77,9 @@ export default function UpdatePasswordPage() {
             required
           />
 
-          {errorMessage && (
-            <p className="auth-error">{errorMessage}</p>
-          )}
+          {errorMessage && <p className="auth-error">{errorMessage}</p>}
 
-          {successMessage && (
-            <p className="auth-success">{successMessage}</p>
-          )}
+          {successMessage && <p className="auth-success">{successMessage}</p>}
 
           <button type="submit" disabled={loading}>
             {loading ? "Updating..." : "Update password"}

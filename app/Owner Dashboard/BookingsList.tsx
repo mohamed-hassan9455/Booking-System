@@ -24,7 +24,7 @@ export default function BookingsList({ bookings }: { bookings: Booking[] }) {
 
   async function updateBookingStatus(
     id: string,
-    status: "accepted" | "rejected"
+    status: "accepted" | "rejected",
   ) {
     setErrorMessage("");
     setSuccessMessage("");
@@ -41,7 +41,7 @@ export default function BookingsList({ bookings }: { bookings: Booking[] }) {
       setErrorMessage(
         `Could not ${
           status === "accepted" ? "accept" : "reject"
-        } the booking. Please try again.`
+        } the booking. Please try again.`,
       );
 
       setProcessingId(null);
@@ -51,7 +51,7 @@ export default function BookingsList({ bookings }: { bookings: Booking[] }) {
     setSuccessMessage(
       `Booking ${
         status === "accepted" ? "accepted" : "rejected"
-      } successfully.`
+      } successfully.`,
     );
 
     setProcessingId(null);
@@ -71,9 +71,7 @@ export default function BookingsList({ bookings }: { bookings: Booking[] }) {
       )}
 
       {successMessage && (
-        <p className="dashboard-success" role="status">
-          {successMessage}
-        </p>
+        <output className="dashboard-success">{successMessage}</output>
       )}
 
       {bookings.length === 0 && <p>No booking requests yet.</p>}
@@ -89,9 +87,7 @@ export default function BookingsList({ bookings }: { bookings: Booking[] }) {
             <div className="booking-card-header">
               <strong>{booking.customer_name}</strong>
 
-              <span
-                className={`booking-status-badge status-${booking.status}`}
-              >
+              <span className={`booking-status-badge status-${booking.status}`}>
                 {booking.status}
               </span>
             </div>
@@ -105,25 +101,21 @@ export default function BookingsList({ bookings }: { bookings: Booking[] }) {
 
             {booking.reason && <p>Reason: {booking.reason}</p>}
 
-            <p className="booking-reference">
-              Ref: {booking.reference_id}
-            </p>
+            <p className="booking-reference">Ref: {booking.reference_id}</p>
 
             {booking.status === "pending" && (
               <div className="booking-card-buttons">
                 <button
-                  onClick={() =>
-                    updateBookingStatus(booking.id, "accepted")
-                  }
+                  type="button"
+                  onClick={() => updateBookingStatus(booking.id, "accepted")}
                   disabled={isProcessing}
                 >
                   {isProcessing ? "Processing..." : "Accept"}
                 </button>
 
                 <button
-                  onClick={() =>
-                    updateBookingStatus(booking.id, "rejected")
-                  }
+                  type="button"
+                  onClick={() => updateBookingStatus(booking.id, "rejected")}
                   disabled={isProcessing}
                 >
                   {isProcessing ? "Processing..." : "Reject"}

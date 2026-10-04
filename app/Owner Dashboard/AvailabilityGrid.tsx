@@ -71,13 +71,9 @@ export default function AvailabilityGrid({
       console.warn("Failed to add availability:", error.message);
 
       if (error.code === "23505") {
-        setErrorMessage(
-          "That availability range already exists for this day."
-        );
+        setErrorMessage("That availability range already exists for this day.");
       } else {
-        setErrorMessage(
-          "Could not save availability. Please try again."
-        );
+        setErrorMessage("Could not save availability. Please try again.");
       }
 
       setSaving(false);
@@ -94,16 +90,11 @@ export default function AvailabilityGrid({
     setSuccessMessage("");
     setRemovingId(id);
 
-    const { error } = await supabase
-      .from("availability")
-      .delete()
-      .eq("id", id);
+    const { error } = await supabase.from("availability").delete().eq("id", id);
 
     if (error) {
       console.warn("Failed to remove availability:", error.message);
-      setErrorMessage(
-        "Could not remove availability. Please try again."
-      );
+      setErrorMessage("Could not remove availability. Please try again.");
 
       setRemovingId(null);
       return;
@@ -124,19 +115,17 @@ export default function AvailabilityGrid({
       )}
 
       {successMessage && (
-        <p className="dashboard-success" role="status">
-          {successMessage}
-        </p>
+        <output className="dashboard-success">{successMessage}</output>
       )}
 
       <div className="availability-days">
         {DAYS.map((dayName, index) => {
           const dayAvailability = availability.filter(
-            (a) => a.day_of_week === index
+            (a) => a.day_of_week === index,
           );
 
           return (
-            <div key={index} className="availability-day-row">
+            <div key={dayName} className="availability-day-row">
               <div className="availability-day-header">
                 <strong>{dayName}</strong>
 
@@ -151,9 +140,7 @@ export default function AvailabilityGrid({
 
               <div className="availability-slots">
                 {dayAvailability.length === 0 && (
-                  <p className="availability-empty">
-                    No availability set
-                  </p>
+                  <p className="availability-empty">No availability set</p>
                 )}
 
                 {dayAvailability.map((slot) => (
@@ -168,9 +155,7 @@ export default function AvailabilityGrid({
                       onClick={() => handleRemove(slot.id)}
                       disabled={removingId === slot.id}
                     >
-                      {removingId === slot.id
-                        ? "Removing..."
-                        : "Remove"}
+                      {removingId === slot.id ? "Removing..." : "Remove"}
                     </button>
                   </div>
                 ))}
@@ -199,11 +184,7 @@ export default function AvailabilityGrid({
                   </label>
 
                   <div className="availability-form-buttons">
-                    <button
-                      type="button"
-                      onClick={handleAdd}
-                      disabled={saving}
-                    >
+                    <button type="button" onClick={handleAdd} disabled={saving}>
                       {saving ? "Saving..." : "Save"}
                     </button>
 
