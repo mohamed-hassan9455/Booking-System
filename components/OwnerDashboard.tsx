@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import AvailabilityGrid from "../app/Owner Dashboard/AvailabilityGrid";
 import BookingsList from "../app/Owner Dashboard/BookingsList";
+import WeeklySchedule from "./WeeklySchedule";
 
 type Availability = {
   id: string;
@@ -31,35 +32,34 @@ export default function OwnerDashboard({
   ownerId: string;
   firstName: string;
 }) {
-  const supabase = createClient();
-
   const [availability, setAvailability] = useState<Availability[]>([]);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const supabase = createClient();
     async function loadData() {
       const { data: availabilityData } = await supabase
-  .from("availability")
-  .select("*")
-  .eq("owner_id", ownerId);
+        .from("availability")
+        .select("*")
+        .eq("owner_id", ownerId);
 
-const now = new Date();
+      const now = new Date();
 
-const today = [
-  now.getFullYear(),
-  String(now.getMonth() + 1).padStart(2, "0"),
-  String(now.getDate()).padStart(2, "0"),
-].join("-");
+      const today = [
+        now.getFullYear(),
+        String(now.getMonth() + 1).padStart(2, "0"),
+        String(now.getDate()).padStart(2, "0"),
+      ].join("-");
 
-const { data: bookingsData } = await supabase
-  .from("bookings")
-  .select("*")
-  .eq("owner_id", ownerId)
-  .in("status", ["pending", "accepted"])
-  .gte("booking_date", today)
-  .order("booking_date", { ascending: true })
-  .order("start_time", { ascending: true });
+      const { data: bookingsData } = await supabase
+        .from("bookings")
+        .select("*")
+        .eq("owner_id", ownerId)
+        .in("status", ["pending", "accepted"])
+        .gte("booking_date", today)
+        .order("booking_date", { ascending: true })
+        .order("start_time", { ascending: true });
 
       setAvailability(availabilityData ?? []);
       setBookings(bookingsData ?? []);
@@ -72,13 +72,23 @@ const { data: bookingsData } = await supabase
       .channel("dashboard-changes")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "availability", filter: `owner_id=eq.${ownerId}` },
-        () => loadData()
+        {
+          event: "*",
+          schema: "public",
+          table: "availability",
+          filter: `owner_id=eq.${ownerId}`,
+        },
+        () => loadData(),
       )
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "bookings", filter: `owner_id=eq.${ownerId}` },
-        () => loadData()
+        {
+          event: "*",
+          schema: "public",
+          table: "bookings",
+          filter: `owner_id=eq.${ownerId}`,
+        },
+        () => loadData(),
       )
       .subscribe();
 
@@ -93,10 +103,9 @@ const { data: bookingsData } = await supabase
     <main className="dashboard-page">
       <h1>Welcome, {firstName}</h1>
 
-      <AvailabilityGrid
-        ownerId={ownerId}
-        availability={availability}
-      />
+      <WeeklySchedule availability={availability} bookings={bookings} />
+
+      <AvailabilityGrid ownerId={ownerId} availability={availability} />
 
       <BookingsList bookings={bookings} />
     </main>
