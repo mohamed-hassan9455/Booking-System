@@ -42,11 +42,71 @@ a {
   text-decoration: none;
 }
 
+/* ========================================
+   Shared Bookly logo
+======================================== */
+
+.bookly-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  color: #111827;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.bookly-logo-mark {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #111827;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.bookly-logo:hover {
+  opacity: 0.85;
+}
+
+.bookly-logo:focus-visible {
+  outline: 2px solid #111827;
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+.auth-card > .bookly-logo,
+.booking-container > .bookly-logo,
+.booking-status-container > .bookly-logo,
+.staff-selection-container > .bookly-logo {
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+  .bookly-logo {
+    font-size: 16px;
+  }
+
+  .bookly-logo-mark {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
+
 .auth-page {
   min-height: 100vh;
   display: flex;
@@ -142,6 +202,7 @@ a {
     padding: 24px;
   }
 }
+
 /* ========================================
    Customer booking page
 ======================================== */
@@ -273,6 +334,7 @@ a {
     padding: 22px;
   }
 }
+
 /* ========================================
    Booking dates and time slots
 ======================================== */
@@ -332,6 +394,7 @@ a {
   background: #111827;
   color: #ffffff;
 }
+
 /* ========================================
    Booking request form
 ======================================== */
@@ -498,6 +561,7 @@ a {
   font-size: 14px;
   line-height: 1.5;
 }
+
 /* ========================================
    Booking status page
 ======================================== */
@@ -683,6 +747,7 @@ a {
     text-align: left;
   }
 }
+
 .booking-time-button.unavailable {
   background: #f3f4f6;
   border-color: #e5e7eb;
@@ -696,6 +761,7 @@ a {
   border-color: #e5e7eb;
   transform: none;
 }
+
 .booking-email-warning {
   margin: 10px 0;
   padding: 10px 12px;
@@ -705,6 +771,7 @@ a {
   font-size: 14px;
   font-weight: 600;
 }
+
 /* ========================================
    Owner dashboard
 ======================================== */
@@ -724,12 +791,6 @@ a {
   padding: 18px 32px;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-}
-
-.dashboard-brand {
-  font-size: 18px;
-  font-weight: 700;
-  color: #111827;
 }
 
 .dashboard-brand-subtitle {
@@ -939,6 +1000,7 @@ a {
 .legend-past {
   background: #d1d5db;
 }
+
 /* ========================================
    Dashboard feedback messages
 ======================================== */

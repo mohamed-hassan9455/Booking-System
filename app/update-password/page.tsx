@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
+import BooklyLogo from "@/components/BooklyLogo";
 import { createClient } from "@/lib/supabase/client";
 
 export default function UpdatePasswordPage() {
@@ -52,6 +53,8 @@ export default function UpdatePasswordPage() {
   return (
     <main className="auth-page">
       <div className="auth-card">
+        <BooklyLogo />
+
         <h1>Set new password</h1>
 
         <p className="auth-subtitle">Enter your new password below.</p>

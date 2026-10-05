@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { type FormEvent, useState } from "react";
+import BooklyLogo from "@/components/BooklyLogo";
 import { createClient } from "@/lib/supabase/client";
 
 export default function ForgotPasswordPage() {
@@ -36,6 +37,8 @@ export default function ForgotPasswordPage() {
   return (
     <main className="auth-page">
       <div className="auth-card">
+        <BooklyLogo />
+
         <h1>Forgot password</h1>
 
         <p className="auth-subtitle">

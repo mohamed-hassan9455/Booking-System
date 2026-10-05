@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
+import BooklyLogo from "@/components/BooklyLogo";
 import { createClient } from "@/lib/supabase/client";
 
 export default function SignupPage() {
@@ -72,6 +73,8 @@ export default function SignupPage() {
   return (
     <main className="auth-page">
       <div className="auth-card">
+        <BooklyLogo />
+
         <h1>Create your Bookly owner account</h1>
 
         <p className="auth-subtitle">
