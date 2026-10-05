@@ -1,8 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { type FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
@@ -69,9 +69,7 @@ export default function LoginPage() {
             <Link href="/forgot-password">Forgot password?</Link>
           </p>
 
-          {errorMessage && (
-            <p className="auth-error">{errorMessage}</p>
-          )}
+          {errorMessage && <p className="auth-error">{errorMessage}</p>}
 
           <button type="submit" disabled={loading}>
             {loading ? "Logging in..." : "Log in"}
@@ -79,8 +77,7 @@ export default function LoginPage() {
         </form>
 
         <p className="auth-footer">
-          Don't have an account?{" "}
-          <Link href="/signup">Create an account</Link>
+          Don't have an account? <Link href="/signup">Create an account</Link>
         </p>
       </div>
     </main>

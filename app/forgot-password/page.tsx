@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { type FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function ForgotPasswordPage() {
@@ -20,7 +20,7 @@ export default function ForgotPasswordPage() {
     setLoading(true);
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "http://localhost:3000/update-password",
+      redirectTo: `${window.location.origin}/update-password`,
     });
 
     if (error) {
@@ -53,13 +53,9 @@ export default function ForgotPasswordPage() {
             required
           />
 
-          {errorMessage && (
-            <p className="auth-error">{errorMessage}</p>
-          )}
+          {errorMessage && <p className="auth-error">{errorMessage}</p>}
 
-          {message && (
-            <p className="auth-success">{message}</p>
-          )}
+          {message && <p className="auth-success">{message}</p>}
 
           <button type="submit" disabled={loading}>
             {loading ? "Sending..." : "Send reset link"}

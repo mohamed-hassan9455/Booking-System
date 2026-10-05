@@ -1,8 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { type FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 export default function SignupPage() {
@@ -47,14 +47,19 @@ export default function SignupPage() {
     });
 
     if (error) {
-      setErrorMessage(error.message);
+      const message =
+        error.message === "Database error saving new user"
+          ? "Account could not be created. Make sure you're using an invited email and that your details are valid."
+          : error.message;
+
+      setErrorMessage(message);
       setLoading(false);
       return;
     }
 
     if (!data.session) {
       setSuccessMessage(
-        "Account created. Check your email to confirm your account."
+        "Account created. Check your email to confirm your account.",
       );
       setLoading(false);
       return;
@@ -67,10 +72,11 @@ export default function SignupPage() {
   return (
     <main className="auth-page">
       <div className="auth-card">
-        <h1>Create an account</h1>
+        <h1>Create your Bookly owner account</h1>
 
         <p className="auth-subtitle">
-          Create your owner account to start accepting bookings.
+          Owner registration is by invite only. Use the email address approved
+          for your Bookly account.
         </p>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -136,13 +142,9 @@ export default function SignupPage() {
             required
           />
 
-          {errorMessage && (
-            <p className="auth-error">{errorMessage}</p>
-          )}
+          {errorMessage && <p className="auth-error">{errorMessage}</p>}
 
-          {successMessage && (
-            <p className="auth-success">{successMessage}</p>
-          )}
+          {successMessage && <p className="auth-success">{successMessage}</p>}
 
           <button type="submit" disabled={loading}>
             {loading ? "Creating account..." : "Create account"}

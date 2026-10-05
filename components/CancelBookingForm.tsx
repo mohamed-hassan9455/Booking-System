@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { type FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 type CancelBookingFormProps = {
@@ -19,22 +19,17 @@ export default function CancelBookingForm({
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  async function handleCancel(
-    event: FormEvent<HTMLFormElement>
-  ) {
+  async function handleCancel(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setLoading(true);
     setErrorMessage("");
     setSuccessMessage("");
 
-    const { data, error } = await supabase.rpc(
-      "cancel_booking_request",
-      {
-        p_reference_id: reference,
-        p_customer_email: email,
-      }
-    );
+    const { data, error } = await supabase.rpc("cancel_booking_request", {
+      p_reference_id: reference,
+      p_customer_email: email,
+    });
 
     if (error) {
       setErrorMessage(error.message);
@@ -44,7 +39,7 @@ export default function CancelBookingForm({
 
     if (!data) {
       setErrorMessage(
-        "Unable to cancel booking. Check that the email is correct."
+        "Unable to cancel booking. Check that the email is correct.",
       );
       setLoading(false);
       return;
@@ -61,15 +56,10 @@ export default function CancelBookingForm({
       <div className="cancel-booking-heading">
         <h2>Cancel booking</h2>
 
-        <p>
-          Enter the email address used when making this booking.
-        </p>
+        <p>Enter the email address used when making this booking.</p>
       </div>
 
-      <form
-        onSubmit={handleCancel}
-        className="cancel-booking-form"
-      >
+      <form onSubmit={handleCancel} className="cancel-booking-form">
         <div className="booking-field">
           <label htmlFor="cancelEmail">Email</label>
 
@@ -77,25 +67,15 @@ export default function CancelBookingForm({
             id="cancelEmail"
             type="email"
             value={email}
-            onChange={(event) =>
-              setEmail(event.target.value)
-            }
+            onChange={(event) => setEmail(event.target.value)}
             placeholder="you@example.com"
             required
           />
         </div>
 
-        {errorMessage && (
-          <p className="booking-form-error">
-            {errorMessage}
-          </p>
-        )}
+        {errorMessage && <p className="booking-form-error">{errorMessage}</p>}
 
-        {successMessage && (
-          <p className="cancel-success">
-            {successMessage}
-          </p>
-        )}
+        {successMessage && <p className="cancel-success">{successMessage}</p>}
 
         <button
           type="submit"

@@ -438,7 +438,6 @@ a {
   font-size: 14px;
 }
 
-
 /* ========================================
    Booking success
 ======================================== */
@@ -609,7 +608,6 @@ a {
   color: #b91c1c;
 }
 
-
 /* ========================================
    Cancel booking
 ======================================== */
@@ -707,557 +705,684 @@ a {
   font-size: 14px;
   font-weight: 600;
 }
+/* ========================================
+   Owner dashboard
+======================================== */
 
-/* ==========================================================
-   Bookly — Owner Dashboard styles
-   ========================================================== */
+.dashboard-shell {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #111827;
+}
 
-   :root {
-    --ink: #1f2430;
-    --ink-soft: #6b7280;
-    --bg: #eef0f3;
-    --surface: #ffffff;
-    --line: #e4e6ea;
-    --accent: #146c6b;
-    --accent-dark: #0f5352;
-    --accent-soft: #e2eeec;
-    --pending: #c9821d;
-    --pending-bg: #fbf0df;
-    --accepted: #2f7d4f;
-    --accepted-bg: #e8f3eb;
-    --danger: #b0432d;
-    --danger-bg: #faeae5;
-    --radius-lg: 16px;
-    --radius-md: 12px;
-    --radius-sm: 8px;
-    --shadow: 0 1px 2px rgba(31, 36, 48, 0.04), 0 6px 16px -8px rgba(31, 36, 48, 0.12);
-    --shadow-soft: 0 1px 2px rgba(31, 36, 48, 0.05), 0 2px 6px -2px rgba(31, 36, 48, 0.08);
+.dashboard-topbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 32px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.dashboard-brand-subtitle {
+  margin-top: 2px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.dashboard-topbar button {
+  padding: 10px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.dashboard-topbar button:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.dashboard-page {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+}
+
+.dashboard-page > h1 {
+  margin-bottom: 28px;
+  font-size: 32px;
+  line-height: 1.2;
+  color: #111827;
+}
+
+/* ========================================
+   Dashboard sections
+======================================== */
+
+.availability-section,
+.bookings-section {
+  margin-bottom: 28px;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+}
+
+.availability-section h2,
+.bookings-section h2 {
+  margin-bottom: 22px;
+  font-size: 22px;
+  color: #111827;
+}
+
+/* ========================================
+   Weekly schedule
+======================================== */
+
+.schedule-section {
+  margin-bottom: 28px;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+}
+
+.schedule-section h2 {
+  margin-bottom: 22px;
+  font-size: 22px;
+  color: #111827;
+}
+
+.schedule-grid-wrapper {
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.schedule-grid {
+  display: grid;
+  min-width: 760px;
+}
+
+.schedule-corner {
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
+}
+
+.schedule-day-label {
+  padding: 12px 8px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  border-left: 1px solid #e5e7eb;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.schedule-time-label {
+  padding: 10px;
+  border-top: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
+  color: #6b7280;
+  font-size: 12px;
+  text-align: right;
+}
+
+.schedule-cell {
+  min-height: 48px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #e5e7eb;
+  border-left: 1px solid #e5e7eb;
+  font-size: 12px;
+  text-align: center;
+}
+
+.schedule-cell-available {
+  background: #ffffff;
+  color: #15803d;
+  font-weight: 600;
+}
+
+.schedule-cell-pending {
+  background: #fffaf2;
+  color: #92400e;
+  border-left: 3px solid #f59e0b;
+  font-weight: 700;
+}
+
+.schedule-cell-accepted {
+  background: #f7fef9;
+  color: #15803d;
+  border-left: 3px solid #22c55e;
+  font-weight: 700;
+}
+
+.schedule-cell-closed {
+  background: #f9fafb;
+  color: #9ca3af;
+}
+
+.schedule-cell-name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.schedule-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 16px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.schedule-legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.schedule-cell-past {
+  background: #f3f4f6;
+  color: #9ca3af;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.legend-available {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+}
+
+.legend-pending {
+  background: #f59e0b;
+}
+
+.legend-accepted {
+  background: #22c55e;
+}
+
+.legend-closed {
+  background: #e5e7eb;
+}
+
+.legend-past {
+  background: #d1d5db;
+}
+/* ========================================
+   Dashboard feedback messages
+======================================== */
+
+.dashboard-success {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  background: #f0fdf4;
+  color: #15803d;
+  font-weight: 600;
+}
+
+.availability-section .auth-error,
+.bookings-section .auth-error {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+/* ========================================
+   Availability
+======================================== */
+
+.availability-days {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.availability-day-row {
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f9fafb;
+}
+
+.availability-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.availability-day-header strong {
+  font-size: 16px;
+  color: #111827;
+}
+
+.availability-day-header button {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.availability-day-header button:hover:not(:disabled) {
+  border-color: #111827;
+}
+
+.availability-slots {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.availability-slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 13px;
+  border-radius: 9px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.availability-slot span {
+  font-weight: 600;
+  color: #374151;
+}
+
+.availability-slot button {
+  padding: 7px 10px;
+  border: 1px solid #fecaca;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.availability-slot button:hover:not(:disabled) {
+  background: #fef2f2;
+}
+
+.availability-empty {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.availability-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+}
+
+.availability-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.availability-form input {
+  padding: 9px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #111827;
+  font-size: 14px;
+}
+
+.availability-form-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.availability-form-buttons button {
+  padding: 9px 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.availability-form-buttons button:first-child {
+  background: #111827;
+  color: #ffffff;
+}
+
+.availability-form-buttons button:last-child {
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+}
+
+/* ========================================
+   Booking cards
+======================================== */
+
+.booking-card {
+  margin-bottom: 16px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.booking-card:last-child {
+  margin-bottom: 0;
+}
+
+.booking-card.status-pending {
+  border-left: 4px solid #f59e0b;
+  background: #fffaf2;
+  color: #111827;
+}
+
+.booking-card.status-accepted {
+  border-left: 4px solid #22c55e;
+  background: #f7fef9;
+  color: #111827;
+}
+
+.booking-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.booking-card-header strong {
+  font-size: 17px;
+}
+
+.booking-card p {
+  margin-top: 7px;
+  color: #4b5563;
+  line-height: 1.45;
+}
+
+.booking-card .booking-reference {
+  margin: 14px 0;
+  color: #111827;
+}
+
+.booking-card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.booking-card-buttons button {
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.booking-card-buttons button:first-child {
+  border: 1px solid #15803d;
+  background: #15803d;
+  color: #ffffff;
+}
+
+.booking-card-buttons button:last-child {
+  border: 1px solid #dc2626;
+  background: #ffffff;
+  color: #b91c1c;
+}
+
+.booking-card-buttons button:disabled,
+.availability-section button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   Dashboard responsive
+======================================== */
+
+@media (max-width: 700px) {
+  .dashboard-topbar {
+    padding: 16px 18px;
   }
-  
-  * {
-    box-sizing: border-box;
+
+  .schedule-section {
+    padding: 20px;
   }
-  
-  .dashboard-shell {
-    background: var(--bg);
-    min-height: 100vh;
-  }
-  
-  /* ---------- top nav ---------- */
-  
-  .dashboard-nav {
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  
-  .dashboard-nav-inner {
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 18px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .dashboard-logo {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
-    font-weight: 800;
-    font-size: 1.4rem;
-    letter-spacing: -0.02em;
-    color: #2563eb;
-  }
-  
-  .dashboard-logo-dot {
-    color: var(--accent);
-  }
-  
-  .dashboard-nav-right {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  
-  .dashboard-nav-name {
-    font-size: 0.88rem;
-    color: var(--ink-soft);
-  }
-  
-  /* ---------- page layout ---------- */
-  
-  .dashboard-page {
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 40px 24px 96px;
-    color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
-    line-height: 1.5;
-  }
-  
-  .dashboard-loading {
-    color: var(--ink-soft);
-    padding: 40px 0;
-  }
-  
-  .dashboard-intro {
-    margin-bottom: 32px;
-  }
-  
-  .dashboard-intro h1 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight: 600;
-    font-size: 1.9rem;
-    letter-spacing: -0.01em;
-    margin: 0 0 6px;
-  }
-  
-  .dashboard-intro p {
-    color: var(--ink-soft);
-    font-size: 0.95rem;
-    margin: 0;
-  }
-  
-  /* ---------- section cards (applies to all three sections) ---------- */
-  
-  .schedule-section,
-  .availability-section,
-  .bookings-section {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
-    padding: 28px 28px 30px;
-    margin-bottom: 28px;
-  }
-  
-  .schedule-section h2,
-  .availability-section h2,
-  .bookings-section h2 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight: 600;
-    font-size: 1.15rem;
-    margin: 0 0 20px;
-  }
-  
-  /* ---------- shared status messages ---------- */
-  
-  .auth-error {
-    background: var(--danger-bg);
-    color: var(--danger);
-    border: 1px solid #edc7ba;
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    font-size: 0.87rem;
-    margin: 0 0 16px;
-  }
-  
-  .dashboard-success {
-    background: var(--accepted-bg);
-    color: var(--accepted);
-    border: 1px solid #c9e2cf;
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    font-size: 0.87rem;
-    margin: 0 0 16px;
-  }
-  
-  /* ---------- weekly schedule grid ---------- */
-  
-  .schedule-grid-wrapper {
-    overflow-x: auto;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-  }
-  
-  .schedule-grid {
-    display: grid;
-    min-width: 680px;
-  }
-  
-  .schedule-corner {
-    background: #fbfaf7;
-    border-bottom: 1px solid var(--line);
-    border-right: 1px solid var(--line);
-  }
-  
-  .schedule-day-label {
-    background: #fbfaf7;
-    border-bottom: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-    padding: 12px 8px;
-    font-size: 0.76rem;
-    font-weight: 600;
-    text-align: center;
-    color: var(--ink-soft);
-  }
-  
-  .schedule-time-label {
-    border-right: 1px solid var(--line);
-    border-top: 1px solid var(--line);
-    padding: 10px;
-    font-size: 0.72rem;
-    color: var(--ink-soft);
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-  }
-  
-  .schedule-cell {
-    border-left: 1px solid var(--line);
-    border-top: 1px solid var(--line);
-    min-height: 46px;
-    padding: 4px 6px;
-    font-size: 0.72rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    transition: background 0.12s ease;
-  }
-  
-  .schedule-cell-available {
-    background: #fff;
-    color: var(--accent-dark);
-    font-weight: 500;
-  }
-  
-  .schedule-cell-available:hover {
-    background: var(--accent-soft);
-  }
-  
-  .schedule-cell-booked {
-    background: #ece9e2;
-    color: var(--ink);
-    font-weight: 600;
-    border-left: 2px solid var(--pending);
-  }
-  
-  .schedule-cell-closed {
-    background: #fbfaf8;
-    color: #cbc9bf;
-  }
-  
-  .schedule-cell-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
+
   .schedule-legend {
-    display: flex;
-    gap: 22px;
-    margin-top: 16px;
-    font-size: 0.8rem;
-    color: var(--ink-soft);
-  }
-  
-  .schedule-legend span {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-  
-  .legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 3px;
-    display: inline-block;
-  }
-  
-  .legend-available { background: #fff; border: 1px solid var(--line); }
-  .legend-booked { background: #ece9e2; border-left: 2px solid var(--pending); }
-  .legend-closed { background: #fbfaf8; border: 1px solid var(--line); }
-  
-  /* ---------- availability settings ---------- */
-  
-  .availability-days {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  
-  .availability-day-row {
-    background: #fbfbfc;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-soft);
-    padding: 18px 20px;
-  }
-  
-  .availability-day-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     gap: 12px;
   }
-  
-  .availability-day-header strong {
-    font-size: 0.94rem;
+
+  .schedule-cell-available {
+    background: #f0fdf4;
+    color: #15803d;
     font-weight: 600;
   }
-  
-  .availability-day-header button {
-    background: #fff;
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-soft);
-    color: var(--ink);
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 7px 14px;
-    border-radius: 999px;
-    transition: border-color 0.15s ease;
+}
+
+.dashboard-page {
+  padding: 28px 14px 44px;
+}
+
+.dashboard-page > h1 {
+  font-size: 27px;
+}
+
+.availability-section,
+.bookings-section {
+  padding: 20px;
+}
+
+.availability-day-header {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.availability-form {
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.availability-form-buttons {
+  width: 100%;
+}
+
+.availability-form-buttons button {
+  flex: 1;
+}
+
+.booking-card-header {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.booking-card-buttons {
+  flex-direction: column;
+}
+
+.booking-card-buttons button {
+  width: 100%;
+}
+
+/* ========================================
+   Staff selection page
+======================================== */
+
+.staff-selection-page {
+  min-height: 100vh;
+  padding: 56px 20px;
+  background: #f5f7fb;
+  color: #111827;
+}
+
+.staff-selection-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.staff-selection-heading {
+  margin-bottom: 30px;
+}
+
+.staff-selection-heading h1 {
+  margin-bottom: 10px;
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.staff-selection-heading > p:last-child {
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.staff-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 26px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+}
+
+.staff-avatar {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #111827;
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.staff-details h2 {
+  margin-bottom: 6px;
+  font-size: 21px;
+}
+
+.staff-details p {
+  margin-bottom: 4px;
+  color: #4b5563;
+}
+
+.staff-details span {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.staff-book-button {
+  width: fit-content;
+  margin-top: auto;
+  padding: 11px 16px;
+  border-radius: 9px;
+  background: #111827;
+  color: #ffffff;
+  font-weight: 700;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.staff-book-button:hover {
+  background: #1f2937;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 700px) {
+  .staff-selection-page {
+    padding: 30px 14px;
   }
-  
-  .availability-day-header button:hover:not(:disabled) {
-    border-color: var(--accent);
-    color: var(--accent-dark);
+
+  .staff-selection-heading h1 {
+    font-size: 27px;
   }
-  
-  .availability-day-header button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+
+  .staff-grid {
+    grid-template-columns: 1fr;
   }
-  
-  .availability-slots {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
+
+  .staff-card {
+    padding: 22px;
   }
-  
-  .availability-empty {
-    color: var(--ink-soft);
-    font-size: 0.85rem;
-    margin: 12px 0 0;
+
+  .staff-book-button {
+    width: 100%;
+    text-align: center;
   }
-  
-  .availability-slot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    padding: 10px 12px 10px 16px;
-    font-size: 0.87rem;
-    font-weight: 500;
-  }
-  
-  .availability-slot button {
-    background: #fff;
-    border: 1px solid var(--line);
-    color: var(--danger);
-    font-size: 0.76rem;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 6px 12px;
-    border-radius: 999px;
-    box-shadow: var(--shadow-soft);
-  }
-  
-  .availability-slot button:hover:not(:disabled) {
-    background: var(--danger-bg);
-    border-color: #edc7ba;
-  }
-  
-  .availability-form {
-    display: flex;
-    align-items: flex-end;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-    padding: 18px;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-  }
-  
-  .availability-form label {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-  }
-  
-  .availability-form input {
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    padding: 9px 10px;
-    font-size: 0.9rem;
-    color: var(--ink);
-    background: #fff;
-  }
-  
-  .availability-form input:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
-  }
-  
-  .availability-form-buttons {
-    display: flex;
-    gap: 8px;
-  }
-  
-  .availability-form-buttons button:first-child {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 10px 18px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s ease;
-  }
-  
-  .availability-form-buttons button:first-child:hover:not(:disabled) {
-    background: var(--accent-dark);
-  }
-  
-  .availability-form-buttons button:last-child {
-    background: none;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    padding: 10px 18px;
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    cursor: pointer;
-  }
-  
-  .availability-form-buttons button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  
-  /* ---------- bookings list ---------- */
-  
-  .bookings-section > p {
-    color: var(--ink-soft);
-    font-size: 0.9rem;
-  }
-  
-  .booking-card {
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: 18px 20px;
-    margin-bottom: 12px;
-    transition: border-color 0.15s ease;
-  }
-  
-  .booking-card.status-pending {
-    border-left-color: var(--pending);
-  }
-  
-  .booking-card.status-accepted {
-    border-left-color: var(--accepted);
-  }
-  
-  .booking-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 6px;
-  }
-  
-  .booking-card-header strong {
-    font-size: 0.95rem;
-  }
-  
-  .booking-status-badge {
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 4px 11px;
-    border-radius: 999px;
-  }
-  
-  .booking-status-badge.status-pending {
-    background: var(--pending-bg);
-    color: var(--pending);
-  }
-  
-  .booking-status-badge.status-accepted {
-    background: var(--accepted-bg);
-    color: var(--accepted);
-  }
-  
-  .booking-card p {
-    margin: 2px 0;
-    font-size: 0.87rem;
-    color: var(--ink-soft);
-  }
-  
-  .booking-reference {
-    font-size: 0.76rem;
-    color: #9a988f;
-    margin-top: 10px !important;
-  }
-  
-  .booking-card-buttons {
-    display: flex;
-    gap: 8px;
-    margin-top: 16px;
-  }
-  
-  .booking-card-buttons button:first-child {
-    background: var(--accepted);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 9px 18px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  
-  .booking-card-buttons button:first-child:hover:not(:disabled) {
-    background: #266840;
-  }
-  
-  .booking-card-buttons button:last-child {
-    background: none;
-    border: 1px solid var(--line);
-    color: var(--danger);
-    border-radius: var(--radius-sm);
-    padding: 9px 18px;
-    font-size: 0.85rem;
-    cursor: pointer;
-  }
-  
-  .booking-card-buttons button:last-child:hover:not(:disabled) {
-    background: var(--danger-bg);
-  }
-  
-  .booking-card-buttons button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  
-  /* ---------- responsive ---------- */
-  
-  @media (max-width: 540px) {
-    .dashboard-page {
-      padding: 28px 16px 64px;
-    }
-  
-    .schedule-section,
-    .availability-section,
-    .bookings-section {
-      padding: 20px 18px 24px;
-    }
-  
-    .availability-day-header {
-      flex-wrap: wrap;
-    }
-  
-    .availability-form {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  }
+}
+
+.booking-change-staff-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.booking-change-staff-link:hover {
+  color: #111827;
+}
