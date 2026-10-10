@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 type Availability = {
   id: string;
@@ -36,12 +36,13 @@ function dateToString(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
-function getWeekDates() {
+function getWeekDates(weekOffset: number) {
   const today = new Date();
   const currentDay = today.getDay();
 
   const monday = new Date(today);
-  monday.setDate(today.getDate() - ((currentDay + 6) % 7));
+  monday.setHours(0, 0, 0, 0);
+  monday.setDate(today.getDate() - ((currentDay + 6) % 7) + weekOffset * 7);
 
   return Array.from({ length: 7 }, (_, index) => {
     const date = new Date(monday);
@@ -59,7 +60,6 @@ function getWeekDates() {
     };
   });
 }
-
 export default function WeeklySchedule({
   availability,
   bookings,
@@ -67,7 +67,31 @@ export default function WeeklySchedule({
   availability: Availability[];
   bookings: Booking[];
 }) {
-  const weekDates = getWeekDates();
+  const [weekOffset, setWeekOffset] = useState(0);
+
+  const weekDates = getWeekDates(weekOffset);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const bookingWindowEnd = new Date(today);
+  bookingWindowEnd.setDate(today.getDate() + 13);
+  bookingWindowEnd.setHours(23, 59, 59, 999);
+
+  const daysSinceMonday = (today.getDay() + 6) % 7;
+  const maxWeekOffset = Math.floor((daysSinceMonday + 13) / 7);
+
+  const canGoPrevious = weekOffset > 0;
+  const canGoNext = weekOffset < maxWeekOffset;
+  const firstDay = weekDates[0].date;
+  const lastDay = weekDates[6].date;
+
+  const dateRange = `${firstDay.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+  })} - ${lastDay.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+  })}`;
 
   function getCell(dayOfWeek: number, dateStr: string, hour: number) {
     const hourStart = hour * 60;
@@ -86,6 +110,13 @@ export default function WeeklySchedule({
       } as const;
     }
     const [year, month, day] = dateStr.split("-").map(Number);
+    const slotDate = new Date(year, month - 1, day);
+
+    if (slotDate > bookingWindowEnd) {
+      return {
+        type: "closed" as const,
+      };
+    }
 
     const slotStart = new Date(year, month - 1, day, hour, 0, 0);
 
@@ -109,7 +140,40 @@ export default function WeeklySchedule({
 
   return (
     <section className="schedule-section">
-      <h2>This week's schedule</h2>
+      <div className="schedule-header">
+        <div>
+          <h2>
+            {weekOffset === 0 ? "This week's schedule" : "Upcoming schedule"}
+          </h2>
+          <p className="schedule-date-range">{dateRange}</p>
+        </div>
+
+        <div className="schedule-navigation">
+          <button
+            type="button"
+            onClick={() => setWeekOffset((current) => current - 1)}
+            disabled={!canGoPrevious}
+          >
+            ← Previous
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setWeekOffset(0)}
+            disabled={weekOffset === 0}
+          >
+            This week
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setWeekOffset((current) => current + 1)}
+            disabled={!canGoNext}
+          >
+            Next →
+          </button>
+        </div>
+      </div>
 
       <div className="schedule-grid-wrapper">
         <div
