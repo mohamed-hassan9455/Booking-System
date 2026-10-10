@@ -36,6 +36,21 @@ export default function OwnerDashboard({
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
 
+  function handleBookingStatusChange(
+    id: string,
+    status: "accepted" | "rejected",
+  ) {
+    setBookings((currentBookings) => {
+      if (status === "rejected") {
+        return currentBookings.filter((booking) => booking.id !== id);
+      }
+
+      return currentBookings.map((booking) =>
+        booking.id === id ? { ...booking, status } : booking,
+      );
+    });
+  }
+
   useEffect(() => {
     const supabase = createClient();
     async function loadData() {
@@ -107,7 +122,10 @@ export default function OwnerDashboard({
 
       <AvailabilityGrid ownerId={ownerId} availability={availability} />
 
-      <BookingsList bookings={bookings} />
+      <BookingsList
+        bookings={bookings}
+        onStatusChange={handleBookingStatusChange}
+      />
     </main>
   );
 }
