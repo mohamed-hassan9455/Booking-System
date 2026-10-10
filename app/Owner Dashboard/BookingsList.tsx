@@ -15,7 +15,13 @@ type Booking = {
   status: string;
 };
 
-export default function BookingsList({ bookings }: { bookings: Booking[] }) {
+export default function BookingsList({
+  bookings,
+  onStatusChange,
+}: {
+  bookings: Booking[];
+  onStatusChange: (id: string, status: "accepted" | "rejected") => void;
+}) {
   const supabase = createClient();
 
   const [processingId, setProcessingId] = useState<string | null>(null);
@@ -47,6 +53,7 @@ export default function BookingsList({ bookings }: { bookings: Booking[] }) {
       setProcessingId(null);
       return;
     }
+    onStatusChange(id, status);
 
     setSuccessMessage(
       `Booking ${
