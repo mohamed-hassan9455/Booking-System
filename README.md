@@ -5,15 +5,19 @@ Bookly is an online booking application that allows owners to manage their avail
 ## Features
 
 ### Owners
+
 - Create an account and log in securely
 - Manage weekly availability
 - View upcoming booking requests
 - Accept or reject pending bookings
 - View accepted bookings
+- View bookings across the 14-day booking window using weekly calendar navigation
 - Log out securely
 
 ### Customers
-- Book through an owner's public booking link
+
+- Choose who they want to book with
+- Book through an owner's public booking page
 - View available and unavailable time slots
 - Submit booking details without creating an account
 - Receive a unique booking reference
