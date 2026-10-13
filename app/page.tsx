@@ -1,14 +1,12 @@
 import Link from "next/link";
+import BooklyLogo from "@/components/BooklyLogo";
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <div className={styles.brand}>
-          <span className={styles.brandMark}>B</span>
-          <span>Bookly</span>
-        </div>
+        <BooklyLogo />
 
         <nav className={styles.nav}>
           <Link href="/login" className={styles.loginLink}>

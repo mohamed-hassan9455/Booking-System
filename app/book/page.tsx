@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BooklyLogo from "@/components/BooklyLogo";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function StaffSelectionPage() {
@@ -12,6 +13,8 @@ export default async function StaffSelectionPage() {
   return (
     <main className="staff-selection-page">
       <div className="staff-selection-container">
+        <BooklyLogo />
+
         <div className="staff-selection-heading">
           <p className="booking-eyebrow">Book an appointment</p>
 

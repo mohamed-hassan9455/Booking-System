@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import BookingSlots from "@/components/BookingSlots";
+import BooklyLogo from "@/components/BooklyLogo";
 import { createClient } from "@/lib/supabase/server";
 
 function dateToString(date: Date) {
@@ -53,6 +54,8 @@ export default async function BookingPage({
   return (
     <main className="booking-page">
       <div className="booking-container">
+        <BooklyLogo />
+
         <section className="booking-header-card">
           <div className="booking-avatar">
             {profile.first_name.charAt(0)}

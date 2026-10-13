@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import BooklyLogo from "@/components/BooklyLogo";
 import CancelBookingForm from "@/components/CancelBookingForm";
 import { createClient } from "@/lib/supabase/server";
 
@@ -40,6 +41,8 @@ export default async function BookingStatusPage({
   return (
     <main className="booking-status-page">
       <div className="booking-status-container">
+        <BooklyLogo />
+
         <section className="booking-status-card">
           <div className="booking-status-heading">
             <p className="booking-eyebrow">Booking details</p>

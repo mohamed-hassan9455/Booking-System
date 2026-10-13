@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
+import BooklyLogo from "@/components/BooklyLogo";
 import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
@@ -38,6 +39,8 @@ export default function LoginPage() {
   return (
     <main className="auth-page">
       <div className="auth-card">
+        <BooklyLogo />
+
         <h1>Log in</h1>
 
         <p className="auth-subtitle">

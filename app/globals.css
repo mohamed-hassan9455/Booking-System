@@ -42,11 +42,71 @@ a {
   text-decoration: none;
 }
 
+/* ========================================
+   Shared Bookly logo
+======================================== */
+
+.bookly-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  color: #111827;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.bookly-logo-mark {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #111827;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.bookly-logo:hover {
+  opacity: 0.85;
+}
+
+.bookly-logo:focus-visible {
+  outline: 2px solid #111827;
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+.auth-card > .bookly-logo,
+.booking-container > .bookly-logo,
+.booking-status-container > .bookly-logo,
+.staff-selection-container > .bookly-logo {
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+  .bookly-logo {
+    font-size: 16px;
+  }
+
+  .bookly-logo-mark {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
+
 .auth-page {
   min-height: 100vh;
   display: flex;
@@ -72,6 +132,31 @@ a {
 .auth-subtitle {
   margin-bottom: 28px;
   color: #666;
+}
+
+.auth-invite-info {
+  margin-bottom: 28px;
+}
+
+.auth-invite-info .auth-subtitle {
+  margin-bottom: 10px;
+}
+
+.auth-invite-request {
+  margin: 0;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.auth-invite-request a {
+  color: #111827;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.auth-invite-request a:hover {
+  opacity: 0.75;
 }
 
 .auth-form {
@@ -142,6 +227,7 @@ a {
     padding: 24px;
   }
 }
+
 /* ========================================
    Customer booking page
 ======================================== */
@@ -273,6 +359,7 @@ a {
     padding: 22px;
   }
 }
+
 /* ========================================
    Booking dates and time slots
 ======================================== */
@@ -332,6 +419,7 @@ a {
   background: #111827;
   color: #ffffff;
 }
+
 /* ========================================
    Booking request form
 ======================================== */
@@ -498,6 +586,7 @@ a {
   font-size: 14px;
   line-height: 1.5;
 }
+
 /* ========================================
    Booking status page
 ======================================== */
@@ -683,6 +772,7 @@ a {
     text-align: left;
   }
 }
+
 .booking-time-button.unavailable {
   background: #f3f4f6;
   border-color: #e5e7eb;
@@ -696,6 +786,7 @@ a {
   border-color: #e5e7eb;
   transform: none;
 }
+
 .booking-email-warning {
   margin: 10px 0;
   padding: 10px 12px;
@@ -705,6 +796,7 @@ a {
   font-size: 14px;
   font-weight: 600;
 }
+
 /* ========================================
    Owner dashboard
 ======================================== */
@@ -724,12 +816,6 @@ a {
   padding: 18px 32px;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-}
-
-.dashboard-brand {
-  font-size: 18px;
-  font-weight: 700;
-  color: #111827;
 }
 
 .dashboard-brand-subtitle {
@@ -803,6 +889,52 @@ a {
   border: 1px solid #e5e7eb;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+}
+.schedule-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.schedule-header h2 {
+  margin-bottom: 6px;
+}
+
+.schedule-date-range {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.schedule-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.schedule-navigation button {
+  padding: 9px 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.schedule-navigation button:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.schedule-navigation button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .schedule-section h2 {
@@ -939,6 +1071,7 @@ a {
 .legend-past {
   background: #d1d5db;
 }
+
 /* ========================================
    Dashboard feedback messages
 ======================================== */
@@ -1208,6 +1341,19 @@ a {
     color: #15803d;
     font-weight: 600;
   }
+
+  .schedule-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .schedule-navigation {
+    width: 100%;
+  }
+
+  .schedule-navigation button {
+    flex: 1;
+  }
 }
 
 .dashboard-page {
@@ -1385,4 +1531,32 @@ a {
 
 .booking-change-staff-link:hover {
   color: #111827;
+}
+
+.google-calendar-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 10px 18px;
+  border: 1px solid #dadce0;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #3c4043;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.15);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.google-calendar-button:hover {
+  background: #f8f9fa;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+}
+
+.google-calendar-icon {
+  width: 18px;
+  height: 18px;
+  color: #4285f4;
 }

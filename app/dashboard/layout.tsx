@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
+import BooklyLogo from "@/components/BooklyLogo";
 import LogoutButton from "@/components/LogoutButton";
 import { createClient } from "@/lib/supabase/server";
 
@@ -20,7 +21,7 @@ export default async function DashboardLayout({
     <div className="dashboard-shell">
       <header className="dashboard-topbar">
         <div>
-          <p className="dashboard-brand">Bookly</p>
+          <BooklyLogo />
           <p className="dashboard-brand-subtitle">Owner dashboard</p>
         </div>
 

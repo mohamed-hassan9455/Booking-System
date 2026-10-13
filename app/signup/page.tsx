@@ -3,11 +3,20 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
+import BooklyLogo from "@/components/BooklyLogo";
 import { createClient } from "@/lib/supabase/client";
 
 export default function SignupPage() {
   const router = useRouter();
   const supabase = createClient();
+  const ownerRequestEmail = process.env.NEXT_PUBLIC_OWNER_REQUEST_EMAIL;
+  const ownerRequestHref = ownerRequestEmail
+    ? `mailto:${ownerRequestEmail}?subject=${encodeURIComponent(
+        "Bookly owner access request",
+      )}&body=${encodeURIComponent(
+        "Hi Bookly team,\n\nI would like to request access to create a Bookly owner account.\n\nEmail address:\nBusiness / role:\nReason for requesting access:\n\nThank you.",
+      )}`
+    : null;
 
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
@@ -72,12 +81,23 @@ export default function SignupPage() {
   return (
     <main className="auth-page">
       <div className="auth-card">
+        <BooklyLogo />
+
         <h1>Create your Bookly owner account</h1>
 
-        <p className="auth-subtitle">
-          Owner registration is by invite only. Use the email address approved
-          for your Bookly account.
-        </p>
+        <div className="auth-invite-info">
+          <p className="auth-subtitle">
+            Owner registration is by invite only. Use the email address approved
+            for your Bookly account.
+          </p>
+
+          {ownerRequestHref && (
+            <p className="auth-invite-request">
+              Not invited yet?{" "}
+              <a href={ownerRequestHref}>Request owner access</a>
+            </p>
+          )}
+        </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="name-row">

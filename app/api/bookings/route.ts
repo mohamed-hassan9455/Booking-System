@@ -11,8 +11,6 @@ function escapeHtml(value: string) {
     .replaceAll("'", "&#039;");
 }
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -38,6 +36,7 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     }
+
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailPattern.test(customerEmail)) {
@@ -68,11 +67,35 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!referenceId) {
+      return NextResponse.json(
+        { error: "Booking was created without a valid reference." },
+        { status: 500 },
+      );
+    }
+
     const { data: owner } = await supabase
       .from("profiles")
       .select("first_name, surname, business_title")
       .eq("id", ownerId)
       .single();
+
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const resendFromEmail = process.env.RESEND_FROM_EMAIL;
+    const appUrl = process.env.APP_URL;
+
+    if (!resendApiKey || !resendFromEmail || !appUrl) {
+      console.error(
+        "Booking email skipped because email configuration is incomplete.",
+      );
+
+      return NextResponse.json({
+        referenceId,
+        emailSent: false,
+      });
+    }
+
+    const resend = new Resend(resendApiKey);
 
     const safeCustomerName = escapeHtml(customerName);
 
@@ -84,6 +107,9 @@ export async function POST(request: Request) {
       ? escapeHtml(owner.business_title)
       : "";
 
+    const safeStartTime = escapeHtml(startTime);
+    const safeReferenceId = escapeHtml(referenceId);
+
     const formattedDate = new Intl.DateTimeFormat("en-GB", {
       weekday: "long",
       day: "numeric",
@@ -91,55 +117,66 @@ export async function POST(request: Request) {
       year: "numeric",
     }).format(new Date(`${bookingDate}T00:00:00`));
 
-    const statusUrl = `${process.env.APP_URL}/booking/${referenceId}`;
+    const baseUrl = appUrl.replace(/\/$/, "");
+    const statusUrl = `${baseUrl}/booking/${encodeURIComponent(referenceId)}`;
+    const safeStatusUrl = escapeHtml(statusUrl);
 
-    const { error: emailError } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL ?? "Bookly <onboarding@resend.dev>",
-      to: customerEmail,
-      subject: "Your Bookly booking request has been received",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1>Booking request received</h1>
+    try {
+      const { error: emailError } = await resend.emails.send({
+        from: resendFromEmail,
+        to: customerEmail,
+        subject: "Your Bookly booking request has been received",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h1>Booking request received</h1>
 
-          <p>Hi ${safeCustomerName},</p>
+            <p>Hi ${safeCustomerName},</p>
 
-          <p>Your booking request has been submitted successfully.</p>
+            <p>Your booking request has been submitted successfully.</p>
 
-          ${
-            owner
-              ? `<p><strong>Booking with:</strong> ${safeOwnerName}</p>`
-              : ""
-          }
+            ${
+              owner
+                ? `<p><strong>Booking with:</strong> ${safeOwnerName}</p>`
+                : ""
+            }
 
-          ${
-            safeBusinessTitle
-              ? `<p><strong>Business / role:</strong> ${safeBusinessTitle}</p>`
-              : ""
-          }
+            ${
+              safeBusinessTitle
+                ? `<p><strong>Business / role:</strong> ${safeBusinessTitle}</p>`
+                : ""
+            }
 
-          <p><strong>Date:</strong> ${formattedDate}</p>
-          <p><strong>Time:</strong> ${startTime}</p>
+            <p><strong>Date:</strong> ${formattedDate}</p>
+            <p><strong>Time:</strong> ${safeStartTime}</p>
 
-          <p>
-            <strong>Booking reference:</strong>
-            ${referenceId}
-          </p>
+            <p>
+              <strong>Booking reference:</strong>
+              ${safeReferenceId}
+            </p>
 
-          <p>
-            <a href="${statusUrl}">
-              View your booking status
-            </a>
-          </p>
+            <p>
+              <a href="${safeStatusUrl}">
+                View your booking status
+              </a>
+            </p>
 
-          <p>
-            Keep your booking reference safe. You can use it to check
-            the status of your booking or cancel it.
-          </p>
-        </div>
-      `,
-    });
+            <p>
+              Keep your booking reference safe. You can use it to check
+              the status of your booking or cancel it.
+            </p>
+          </div>
+        `,
+      });
 
-    if (emailError) {
+      if (emailError) {
+        console.error("Booking email failed:", emailError);
+
+        return NextResponse.json({
+          referenceId,
+          emailSent: false,
+        });
+      }
+    } catch (emailError) {
       console.error("Booking email failed:", emailError);
 
       return NextResponse.json({
