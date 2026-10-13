@@ -15,6 +15,7 @@ type Booking = {
   status: string;
 };
 
+
 function googleCalendarLink(booking: Booking) {
   const format = (date: string, time: string) =>
     date.replace(/-/g, "") + "T" + time.slice(0, 5).replace(":", "") + "00";
@@ -34,6 +35,7 @@ function googleCalendarLink(booking: Booking) {
 
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
+
 
 export default function BookingsList({
   bookings,
