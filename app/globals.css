@@ -1532,3 +1532,31 @@ a {
 .booking-change-staff-link:hover {
   color: #111827;
 }
+
+.google-calendar-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 10px 18px;
+  border: 1px solid #dadce0;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #3c4043;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.15);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.google-calendar-button:hover {
+  background: #f8f9fa;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+}
+
+.google-calendar-icon {
+  width: 18px;
+  height: 18px;
+  color: #4285f4;
+}
